@@ -5,16 +5,14 @@
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .example-wrapper code { background:rgb(213, 9, 9); padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }} ! ✅</h1>
-
-    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code>C:/wamp64/www/AFPA/Cours du Prof GIT/Cours_PHP_SYMFONY/01_creation_projet/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/AFPA/Cours du Prof GIT/Cours_PHP_SYMFONY/01_creation_projet/templates/home/index.html.twig</code></li>
+        {% for article in articles %}
+        <li> {{article.title}}</li>
+        {% endfor %}
     </ul>
 </div>
 {% endblock %}
