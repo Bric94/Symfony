@@ -358,6 +358,13 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\ArticleController"/>
       </call>
     </service>
+    <service id="App\Controller\CrudArticleController" class="App\Controller\CrudArticleController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\CrudArticleController"/>
+      </call>
+    </service>
     <service id="App\Controller\HomeController" class="App\Controller\HomeController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -365,11 +372,22 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\HomeController"/>
       </call>
     </service>
+    <service id="App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\OrderDetailsRepository" class="App\Repository\OrderDetailsRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\OrderRepository" class="App\Repository\OrderRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -400,7 +418,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.a90bX46"/>
+      <argument type="service" id=".service_locator.nSR6wij"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1307,9 +1325,11 @@
       <argument type="service" id="form.registry"/>
       <argument type="collection">
         <argument>Symfony\Component\Form\Extension\Core\Type</argument>
+        <argument>App\Form</argument>
         <argument>Symfony\Bridge\Doctrine\Form\Type</argument>
       </argument>
       <argument type="collection">
+        <argument>App\Form\ArticleType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FormType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\ChoiceType</argument>
         <argument>Symfony\Component\Form\Extension\Core\Type\FileType</argument>
@@ -3275,7 +3295,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.a90bX46"/>
+      <argument type="service" id=".service_locator.nSR6wij"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -3764,7 +3784,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.y4dplYt"/>
+      <argument type="service" id=".service_locator.CminHI1"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -5019,7 +5039,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.UY5.ROr"/>
+      <argument type="service" id=".service_locator.yMvcPou"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7007,13 +7027,22 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ArticleController" class="App\Controller\ArticleController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CrudArticleController" class="App\Controller\CrudArticleController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CrudArticleController" class="App\Controller\CrudArticleController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CrudArticleController" class="App\Controller\CrudArticleController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ArticleType" class="App\Form\ArticleType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ArticleRepository" class="App\Repository\ArticleRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CategoryRepository" class="App\Repository\CategoryRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OrderDetailsRepository" class="App\Repository\OrderDetailsRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\OrderDetailsRepository" class="App\Repository\OrderDetailsRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OrderRepository" class="App\Repository\OrderRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\OrderRepository" class="App\Repository\OrderRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.w7.f4fT" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7449,16 +7478,39 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.a90bX46" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.XqCCpgA" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="article" type="service_closure" id=".errored..service_locator.XqCCpgA.App\Entity\Article"/>
+      </argument>
+    </service>
+    <service id=".service_locator.zwPUnYq" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="article" type="service_closure" id=".errored..service_locator.zwPUnYq.App\Entity\Article"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.nSR6wij" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\ArticleController::getArticleInfo" type="service_closure" id=".service_locator.b12wXHr"/>
+        <argument key="App\Controller\CrudArticleController::delete" type="service_closure" id=".service_locator.zwPUnYq"/>
+        <argument key="App\Controller\CrudArticleController::edit" type="service_closure" id=".service_locator.zwPUnYq"/>
+        <argument key="App\Controller\CrudArticleController::index" type="service_closure" id=".service_locator.b12wXHr"/>
+        <argument key="App\Controller\CrudArticleController::new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\CrudArticleController::show" type="service_closure" id=".service_locator.XqCCpgA"/>
         <argument key="App\Controller\HomeController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Controller\ArticleController:getArticleInfo" type="service_closure" id=".service_locator.b12wXHr"/>
+        <argument key="App\Controller\CrudArticleController:delete" type="service_closure" id=".service_locator.zwPUnYq"/>
+        <argument key="App\Controller\CrudArticleController:edit" type="service_closure" id=".service_locator.zwPUnYq"/>
+        <argument key="App\Controller\CrudArticleController:index" type="service_closure" id=".service_locator.b12wXHr"/>
+        <argument key="App\Controller\CrudArticleController:new" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\CrudArticleController:show" type="service_closure" id=".service_locator.XqCCpgA"/>
         <argument key="App\Controller\HomeController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -7621,9 +7673,10 @@
       <argument type="service" id="argument_resolver.query_parameter_value_resolver"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.y4dplYt" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.CminHI1" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Form\ArticleType" type="service_closure" id="App\Form\ArticleType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service_closure" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service_closure" id="form.type.choice"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ColorType" type="service_closure" id="form.type.color"/>
@@ -7749,11 +7802,13 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.UY5.ROr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.yMvcPou" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ArticleRepository" type="service_closure" id="App\Repository\ArticleRepository"/>
         <argument key="App\Repository\CategoryRepository" type="service_closure" id="App\Repository\CategoryRepository"/>
+        <argument key="App\Repository\OrderDetailsRepository" type="service_closure" id="App\Repository\OrderDetailsRepository"/>
+        <argument key="App\Repository\OrderRepository" type="service_closure" id="App\Repository\OrderRepository"/>
       </argument>
     </service>
     <service id=".service_locator.KLVvNIq" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8077,6 +8132,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\CrudArticleController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CrudArticleController"/>
+      <argument>App\Controller\CrudArticleController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\HomeController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\HomeController"/>
       <argument>App\Controller\HomeController</argument>
@@ -8258,6 +8319,7 @@
         <argument type="collection">
           <argument>App\Kernel</argument>
           <argument>App\Controller\ArticleController</argument>
+          <argument>App\Controller\CrudArticleController</argument>
           <argument>App\Controller\HomeController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -8458,6 +8520,12 @@
     <service id="debug.security.event_dispatcher.main.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.y4_Zrx.&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
+    </service>
+    <service id=".errored..service_locator.XqCCpgA.App\Entity\Article" class="App\Entity\Article">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.XqCCpgA&quot;: it needs an instance of &quot;App\Entity\Article&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
+    </service>
+    <service id=".errored..service_locator.zwPUnYq.App\Entity\Article" class="App\Entity\Article">
+      <tag name="container.error" message="Cannot autowire service &quot;.service_locator.zwPUnYq&quot;: it needs an instance of &quot;App\Entity\Article&quot; but this type has been excluded in &quot;config/services.yaml&quot;."/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -9643,7 +9711,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.a90bX46"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.nSR6wij"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -9667,9 +9735,9 @@
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
-    <service id=".service_locator.QHgMxLg" alias=".service_locator.a90bX46"/>
+    <service id=".service_locator.YNt3132" alias=".service_locator.nSR6wij"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.F9PKc.7"/>
-    <service id=".service_locator.Za9MpXe" alias=".service_locator.y4dplYt"/>
+    <service id=".service_locator.tz.g440" alias=".service_locator.CminHI1"/>
     <service id=".service_locator.XtmiKbi" alias=".service_locator.MfxSDRP"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
@@ -9695,6 +9763,8 @@
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
     <service id=".service_locator.XqClUT3" alias=".service_locator.b12wXHr"/>
     <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>
+    <service id=".service_locator.s.PmVJl" alias=".service_locator.XqCCpgA"/>
+    <service id=".service_locator.ct6Q_Tx" alias=".service_locator.zwPUnYq"/>
     <service id=".service_locator.Q1z.f9O" alias=".service_locator.O2p6Lk7"/>
     <service id=".service_locator.dGUCsbe" alias=".service_locator.oR77BOj"/>
     <service id=".service_locator._kIAbz1" alias=".service_locator.TpoC7U9"/>
