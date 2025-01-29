@@ -11,7 +11,7 @@
 <div class="example-wrapper">
     <ul>
         {% for article in articles %}
-        <li> {{article.title}}</li>
+        <li> <a href="{{ path('show_article', {id : article.id }) }}">{{article.title}}</a></li>
         {% endfor %}
     </ul>
 </div>
